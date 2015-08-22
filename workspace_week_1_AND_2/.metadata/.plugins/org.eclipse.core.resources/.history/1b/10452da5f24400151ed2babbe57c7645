@@ -1,0 +1,43 @@
+package com.mongodb;
+
+import static com.mongodb.Helpers.printJson;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Projections;
+
+public class FindWithSortSkipLimitTest {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("course");
+       	MongoCollection<Document> collection = db.getCollection("findWithFilterTest");
+       	
+       	collection.drop();
+       	
+       	for(int i = 0; i < 10; i++) {
+       		collection.insertOne(new Document()
+       							.append("x", new Random().nextInt(2))
+       							.append("y", new Random().nextInt(100))
+       							.append("i", i));
+       	}
+       	
+      
+       	Bson projection = Projections.fields(include("i", "j"), excludeId());
+       	
+       	
+       	List<Document> all = collection.find()
+       			.projection(projection)
+       			.into(new ArrayList<Document>());
+       	
+       	for(Document cur : all) {
+       		printJson(cur);
+       	}
+	}
+}

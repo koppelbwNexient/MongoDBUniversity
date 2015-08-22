@@ -1,0 +1,51 @@
+package com.mongodb.week2;
+
+import static com.mongodb.week2.Helpers.printJson;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+
+public class HomeWork_2_3 {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("students");
+       	MongoCollection<Document> collection = db.getCollection("grades");
+       	
+       	
+     	Bson filter = Filters.eq("type", "homework");
+       	Bson sort = new Document("student_id", 1).append("score", 1);
+       	
+       	List<Document> all = collection.find()
+       			.filter(filter)
+       			.sort(sort)
+       			.into(new ArrayList<Document>());
+       	
+       	int oldId = -1;
+       	int newId = all.get(0).getInteger("student_id");
+       	
+       	System.out.println("NEWID: " + newId);
+       	for(Document cur : all) {
+       		newId = cur.getInteger("student_id");
+       		
+       		if(oldId == newId) {
+       			printJson(cur);
+       		} else {
+       			System.out.println("___REMOVING___");
+       			printJson(cur);
+       			System.out.println("^^^REMOVING^^^");
+       			oldId = newId;
+       		}
+       		//printJson(cur);
+       	}
+       	
+       	
+	}
+}

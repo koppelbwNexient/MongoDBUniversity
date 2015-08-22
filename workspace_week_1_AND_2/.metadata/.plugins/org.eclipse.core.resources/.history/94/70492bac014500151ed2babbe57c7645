@@ -1,0 +1,34 @@
+package com.mongodb.week2;
+
+import static com.mongodb.week2.Helpers.printJson;
+
+import java.util.ArrayList;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.UpdateOptions;
+
+public class DeleteTest {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("course");
+       	MongoCollection<Document> collection = db.getCollection("test");
+       	
+       	collection.drop();
+       	
+       	for(int i = 0; i < 8; i++) {
+       		collection.insertOne(new Document().append("_id", i));
+       	}
+       	
+       	
+       	
+       	for(Document cur : collection.find().into(new ArrayList<Document>())) {
+       		printJson(cur);
+       	}
+       	
+	}
+}

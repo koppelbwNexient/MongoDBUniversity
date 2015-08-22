@@ -1,0 +1,18 @@
+package com.mongodb;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100).build();
+    	
+    	// MongoClient is a heavyweight object that represents a pool of sockets or connections to all servers
+       	MongoClient client = new MongoClient(new ServerAddress(), options);
+       	
+       	MongoDatabase db = client.getDatabase("test");
+    }
+}

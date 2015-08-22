@@ -1,0 +1,40 @@
+package com.mongodb.week2;
+
+import static com.mongodb.week2.Helpers.printJson;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Projections;
+
+public class HomeWork_2_3 {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("students");
+       	MongoCollection<Document> collection = db.getCollection("grades");
+       	
+       	
+       	
+    	Bson projection = Projections.fields(Projections.include("i", "j"), Projections.exclude("_id"));
+       	Bson sort = new Document("i", 1).append("j", 1);
+       	
+       	List<Document> all = collection.find()
+       			.projection(projection)
+       			.sort(sort)
+       			.skip(20)
+       			.limit(50)
+       			.into(new ArrayList<Document>());
+       	
+       	for(Document cur : all) {
+       		printJson(cur);
+       	}
+       	
+       	
+	}
+}

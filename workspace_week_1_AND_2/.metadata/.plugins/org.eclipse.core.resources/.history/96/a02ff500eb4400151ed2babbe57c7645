@@ -1,0 +1,20 @@
+package com.mongodb;
+
+import org.bson.Document;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class InsertTest {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("course");
+       	MongoCollection<Document> collection = db.getCollection("insertTest");
+       	
+       	collection.drop();
+       	
+       	Document smith = new Document("name", "Smith")
+       								.append("age", 30)
+       								.append("profession", "programmer");
+	}
+}

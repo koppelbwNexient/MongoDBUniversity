@@ -1,0 +1,30 @@
+package com.mongodb;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+/**
+ * Hello world!
+ *
+ */
+public class App 
+{
+    public static void main( String[] args )
+    {
+    	MongoClientOptions options = MongoClientOptions.builder().connectionsPerHost(100).build();
+    	
+    	// MongoClient is a heavyweight object that represents a pool of sockets or connections to all servers
+       	MongoClient client = new MongoClient(new ServerAddress(), options);
+       	
+       	// MongoDatabase is lightweight. Immutable
+       	MongoDatabase db = client.getDatabase("test");
+       	
+       	// Lightweight. Immutable
+       	MongoCollection<Document> collection = db.getCollection("test");
+    }
+}

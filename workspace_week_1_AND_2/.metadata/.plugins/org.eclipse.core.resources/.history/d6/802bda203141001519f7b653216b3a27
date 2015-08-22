@@ -1,0 +1,21 @@
+package com.mongodb;
+
+import java.io.IOException;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+
+public class HelloWorldFreeMakerStyle {
+	public static void main(String[] args) {
+		
+		// Bootstrap yourself
+		Configuration configuration = new Configuration();
+		configuration.setClassForTemplateLoading(HelloWorldFreeMakerStyle.class, "/");
+		
+		try {
+			Template hellTemplate = configuration.getTemplate("hello.ftl");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

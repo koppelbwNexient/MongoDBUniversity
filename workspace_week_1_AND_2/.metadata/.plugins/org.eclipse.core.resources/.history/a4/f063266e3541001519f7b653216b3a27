@@ -1,0 +1,24 @@
+package com.mongodb;
+
+import freemarker.template.Configuration;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+
+public class HelloWorldSparkFreemarkerStyle {
+	public static void main(String[] args) {
+		
+		// Bootstrap yourself
+		Configuration configuration = new Configuration();
+		configuration.setClassForTemplateLoading(HelloWorldSparkFreemarkerStyle.class, "/");
+		
+		Spark.get(new Route("/") {
+			@Override
+			public Object handle(final Request request, final Response response) {
+				return "Hello World from Spark!";
+			}
+		});
+	}
+	
+}

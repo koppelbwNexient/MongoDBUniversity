@@ -1,0 +1,47 @@
+package com.mongodb.week2;
+
+import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.gt;
+import static com.mongodb.client.model.Filters.lt;
+import static com.mongodb.week2.Helpers.printJson;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
+
+public class HomeWork_2_3 {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("students");
+       	MongoCollection<Document> collection = db.getCollection("grades");
+       	
+       	
+     	Bson filter = Filters.eq("type", "homework");
+       	Bson sort = new Document("student_id", 1).append("score", 1);
+       	
+       	List<Document> all = collection.find()
+       			.filter(filter)
+       			.sort(sort)
+       			.into(new ArrayList<Document>());
+       	
+       	int oldId = 0;
+       	int newId = 0;
+       	for(Document cur : all) {
+       		if(isNewId) {
+       			
+       		}
+       		printJson(cur);
+       	}
+       	
+       	
+	}
+}

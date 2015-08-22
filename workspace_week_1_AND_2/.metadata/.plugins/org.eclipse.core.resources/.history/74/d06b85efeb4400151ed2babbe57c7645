@@ -1,0 +1,33 @@
+package com.mongodb;
+
+import static com.mongodb.Helpers.printJson;
+import org.bson.Document;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import java.util.Arrays;
+
+
+
+public class InsertTest {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("course");
+       	MongoCollection<Document> collection = db.getCollection("insertTest");
+       	
+       	collection.drop();
+       	
+       	Document smith = new Document("name", "Smith")
+			.append("age", 30)
+			.append("profession", "programmer");
+       	
+       	Document jones = new Document("name", "Jones")
+			.append("age", 23)
+			.append("profession", "Doctor");
+       	
+       	printJson(smith);
+       	//collection.insertOne(smith);
+       	collection.insertMany(asList(smith, jones));
+       	printJson(smith);
+       	
+	}
+}

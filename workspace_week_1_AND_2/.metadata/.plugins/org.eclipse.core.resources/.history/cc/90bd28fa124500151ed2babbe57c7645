@@ -1,0 +1,19 @@
+package com.mongodb.week2;
+
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class HomeWork_2_3 {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("students");
+       	MongoCollection<Document> collection = db.getCollection("grades");
+       	
+       	
+       	
+       	
+	}
+}

@@ -1,0 +1,14 @@
+package com.mongodb;
+
+import org.bson.Document;
+
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class InsertTest {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("test");
+       	MongoCollection<Document> collection = db.getCollection("test");
+	}
+}

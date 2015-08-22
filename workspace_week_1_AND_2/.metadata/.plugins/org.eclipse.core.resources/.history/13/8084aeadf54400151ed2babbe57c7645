@@ -1,0 +1,30 @@
+package com.mongodb.week2;
+
+import java.util.ArrayList;
+
+import static com.mongodb.week2.Helpers.printJson;
+import org.bson.Document;
+
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
+public class UpdateTest {
+	public static void main(String[] args) {
+       	MongoClient client = new MongoClient();
+       	MongoDatabase db = client.getDatabase("course");
+       	MongoCollection<Document> collection = db.getCollection("findWithFilterTest");
+       	
+       	collection.drop();
+       	
+       	for(int i = 0; i < 8; i++) {
+       		collection.insertOne(new Document().append("_id", i).append("x", i));
+       	}
+       	
+       	
+       	for(Document cur : collection.find().into(new ArrayList<Documnt>())) {
+       		printJson(cur);
+       	}
+       	
+	}
+}

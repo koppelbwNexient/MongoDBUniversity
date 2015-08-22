@@ -1,0 +1,12 @@
+package com.mongodb;
+
+import freemarker.template.Configuration;
+
+public class HelloWorldFreeMakerStyle {
+	public static void main(String[] args) {
+		
+		// bootstrap yourself
+		Configuration configuration = new Configuration();
+		configuration.setClassForTemplateLoading(HelloWorldFreeMarkerStlye.class, "/");
+	}
+}
